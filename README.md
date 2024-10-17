@@ -54,7 +54,8 @@ The book listing must be displayed in the user's profile and searchable by other
 **User Story 3: Book Search** 
 As a user, I want to search for books based on criteria such as title, author, genre, and location, So that I can easily find books that interest me. 
 Acceptance Criteria: 
-The platform must provide a search bar where users can enter keywords like title, author, or genre. The platform should allow users to filter search results by availability status, genre, and location. Users must be able to view detailed information about a book (title, author, condition, etc.) when clicking on a search result. 
+The platform must provide a search bar where users can enter keywords like title, author, or genre. The platform should allow users to filter search results by availability status, genre, and location. 
+Users must be able to view detailed information about a book (title, author, condition, etc.) when clicking on a search result. 
 The search results should be paginated or load incrementally to handle large datasets. 
  
 **User Story 4: Exchange Requests** 
@@ -65,6 +66,8 @@ The request must include the option to negotiate terms, such as delivery method 
 The recipient of the request should be able to accept, reject, or modify the request. 
 Both parties should receive notifications about the status of the exchange request (pending, accepted, rejected, modified). 
 The platform should track ongoing exchanges in the user's transaction history. 
+
+
  
 **User Story 7: Transaction Management**
 As a user, I want to manage my book exchanges, So that I can track the status of all my exchange transactions. Acceptance Criteria: 
@@ -72,3 +75,38 @@ Users must be able to view a history of their exchange requests, including pendi
 The transaction management interface should allow users to cancel pending exchanges. 
 Users should receive notifications when a transaction status changes (e.g., request accepted, book delivered). 
 Transaction history should be available to users on their profile page.
+
+**ASSIGNMENT EXPECTATIONS**
+-------------------------
+
+**PART 1: DESIGN**
+Design a full-stack architecture for the given Problem statement. For the chosen application, define the application's purpose, user roles, and core functionalities. Identify the primary features of your application and design the architecture of the application. 
+The design should consider scalability by using a modular architecture. The frontend should be component-based (e.g., using React components) with a structured hierarchy, while the backend should follow proper separation of concerns (e.g., routing, controllers, services) and a suitable architecture. Identify the services and the operations to be implemented 
+Plan your application design in a way that would make it easy to add new features or extend the architecture in the future. For example, ensure that your backend logic is decoupled from the frontend so that other applications, like a mobile app can reuse it. 
+ 
+ 
+ 
+**PART 2: BACKEND** 
+You are expected to implement three important user stories for the problem statement. Your implementation should follow modern web application development practices. 
+Use Node.js (or another backend framework of your choice) to handle server-side logic. Develop REST APIs or GraphQL APIs to handle CRUD operations with a database. Ensure proper routing, URL mapping, and response handling. Use any database (SQL/NoSQL) for data storage and retrieval. 
+ 
+**PART 3. FRONTEND** 
+Design and implement the frontend UI for the same three important user stories. Choose a suitable frontend framework and implement it. Use a client-side JavaScript framework (e.g., React, Angular, Vue.js) to build the user interface. Design an interactive, user-friendly UI with responsiveness and state management. Implement the key components that reflect the selected functionalities  
+ 
+**PART 4: INTEGRATION** 
+A complete end-to-end demonstration of the selected user stories to be implemented.  
+Integrate the frontend and backend components and demonstrate the capabilities. Demonstrate communication between the front end and back end using APIs (e.g., AJAX, Fetch API). Use authentication for secure access to API endpoints. 
+
+**DELIVERABLES:**
+
+1.	Design Documentation: Full application architecture (frontend-backend interaction, API endpoints, database schema). UI/UX wireframes for the platform’s core features. A detailed explanation of your approach to implementing scalability and modularity. 
+2.	Demonstration Video of the Working Prototype: Video recording showing the demonstrations of the user stories implemented both frontend and backend. 
+Note: if you are exceeding size limits when uploading videos to the elearn portal, add it to a Google Drive and submit the link)  
+3.	GitHub Repository: A well-organized repository with a clear README file that includes instructions for setting up the application. 
+4.	Short Presentation: A presentation explaining your technology choices, the user stories implemented, snapshots of UI, snapshots of API response in tools like Postman
+   
+**SUBMISSION INSTRUCTIONS** 
+       
+1.	Upload the complete code to the GitHub repositories. GitHub repository access is to be kept public and open for all evaluators.  
+2.	Create a ZIP file including all the four deliverables (Design document, Demonstration Video, Github Link(mentioned in a notepad), Short Presentation) and upload a single ZIP file to the LMS. 
+3.	Academic Honesty: You can discuss with peers and refer to the internet to understand the concept better. However, you may not share code with other groups or do not do a verbatim copy from the Internet/Generative AI responses/GitHub repositories. The code will be tested for plagiarism. If found guilty, no marks will be awarded. 
