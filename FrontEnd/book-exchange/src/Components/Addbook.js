@@ -35,28 +35,32 @@ const AddBook = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
+      <label id="title">
         Title:
         <input
           type="text"
+          required
           value={title}
           onChange={(event) => setTitle(event.target.value)}
         />
       </label>
       <br />
-      <label>
+      <label id="author">
         Author:
         <input
           type="text"
+          required
           value={author}
           onChange={(event) => setAuthor(event.target.value)}
         />
       </label>
       <br />
-      <label>
+      <label id="genre">
+
         Genre:
         <input
           type="text"
+          required
           value={genre}
           onChange={(event) => setGenre(event.target.value)}
         />
