@@ -110,8 +110,3 @@ Note: if you are exceeding size limits when uploading videos to the elearn porta
 1.	Upload the complete code to the GitHub repositories. GitHub repository access is to be kept public and open for all evaluators.  
 2.	Create a ZIP file including all the four deliverables (Design document, Demonstration Video, Github Link(mentioned in a notepad), Short Presentation) and upload a single ZIP file to the LMS. 
 3.	Academic Honesty: You can discuss with peers and refer to the internet to understand the concept better. However, you may not share code with other groups or do not do a verbatim copy from the Internet/Generative AI responses/GitHub repositories. The code will be tested for plagiarism. If found guilty, no marks will be awarded. 
-
-
-
-
-**Admin**
