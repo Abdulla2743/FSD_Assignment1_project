@@ -36,6 +36,16 @@ app.post("/add-book", async (req, res) => {
   }
 });
 
+app.get("/get-books", async (req, res) => {
+    try {
+        const books = await Book.find();
+        res.status(200).send(books); 
+    } catch (err) {
+        res.status(500).send({ error: 'Failed to retrieve books', details: err });
+    }
+});
+
+
 // User Authentication
 const users = [];
 const SECRET_KEY = 'jkldfvhiilas1264@';
