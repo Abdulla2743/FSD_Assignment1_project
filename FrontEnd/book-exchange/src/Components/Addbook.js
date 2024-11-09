@@ -1,102 +1,54 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const AddBook = () => {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [genre, setGenre] = useState("");
-  const [condition, setCondition] = useState("");
-  const [status, setStatus] = useState("");
+    const [title, setTitle] = useState('');
+    const [author, setAuthor] = useState('');
+    const [genre, setGenre] = useState('');
+    const [condition, setCondition] = useState('');
+    const [status, setStatus] = useState('');
+    const [image, setImage] = useState(1);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const formData = {
-      title,
-      author,
-      genre,
-      condition,
-      status,
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+            setImage(e => e + 1);
+            if(image === 18){
+                setImage(1)
+            }
+        console.log(image);
+        const bookData = {
+            title,
+            author,
+            genre,
+            condition,
+            status,
+            image
+        };
+   
+        try {
+            const response = await axios.post('http://localhost:5000/add-book', bookData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log('Book added:', response.data);
+        } catch (error) {
+            console.error('Failed to add book:', error);
+        }
     };
+   
 
-    fetch("/add-book", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <label id="title">
-        Title:
-        <input
-          type="text"
-          required
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-        />
-      </label>
-      <br />
-      <label id="author">
-        Author:
-        <input
-          type="text"
-          required
-          value={author}
-          onChange={(event) => setAuthor(event.target.value)}
-        />
-      </label>
-      <br />
-      <label id="genre">
-
-        Genre:
-        <input
-          type="text"
-          required
-          value={genre}
-          onChange={(event) => setGenre(event.target.value)}
-        />
-      </label>
-      <br />
-      <label for="condition">Condition:</label>
-      <select
-        id="condition"
-        name="condition"
-        required
-        value={condition}
-        onChange={(event) => setCondition(event.target.value)}
-      >
-        <option value="">--------</option>
-        <option value="new">New</option>
-        <option value="used">Used</option>
-        <option value="damaged">Damaged</option>
-      </select>
-      <br />
-      <label for="status">Availability Status:</label>
-      <select
-        id="status"
-        name="status"
-        required
-        value={status}
-        onChange={(event) => setStatus(event.target.value)}
-      >
-        <option value="">--------</option>
-        <option value="available">Available</option>
-        <option value="checked out">Checked Out</option>
-        <option value="reserved">Reserved</option>
-      </select>
-      <br />
-      <button type="submit">Add Book</button>
-    </form>
-  );
+    return (
+        <form onSubmit={handleSubmit}>
+            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" required />
+            <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Author" required />
+            <input type="text" value={genre} onChange={(e) => setGenre(e.target.value)} placeholder="Genre" required />
+            <input type="text" value={condition} onChange={(e) => setCondition(e.target.value)} placeholder="Condition" required />
+            <input type="text" value={status} onChange={(e) => setStatus(e.target.value)} placeholder="Status" required />
+            <button type="submit">Add Book</button>
+        </form>
+    );
 };
 
 export default AddBook;
