@@ -20,7 +20,7 @@ The platform should provide a user-friendly interface, robust search and recomme
 
 **Book Listing:** Enable users to list books they want to exchange or lend, including details such as title, author, genre, condition, and availability status. 
 
-**Book Search:** Provide users with advanced search and filtering options to discover books based on criteria like genre, author, title, location, and availability. 
+**Book Search:** Provide users with advanced search and filtering options to discover books based on criteria like genre, author, title, availability. 
 
 **Exchange Requests:** Allow users to send and receive exchange requests for specific books, including negotiation options for terms such as delivery method and duration. 
 
