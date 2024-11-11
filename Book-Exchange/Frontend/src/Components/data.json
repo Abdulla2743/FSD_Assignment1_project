@@ -1,0 +1,22 @@
+[
+    { "title": "The Silent Patient", "author": "Alex Michaelides", "genre": "Thriller", "condition": "Very Good", "status": "Available", "imagePath": 1 },
+    { "title": "1984", "author": "George Orwell", "genre": "Horror", "condition": "Good", "status": "Not Available", "imagePath": 2 },
+    { "title": "The Great Gatsby", "author": "F. Scott Fitzgerald", "genre": "Comedy", "condition": "Average", "status": "Available", "imagePath": 3 },
+    { "title": "To Kill a Mockingbird", "author": "Harper Lee", "genre": "Biopic", "condition": "Usable", "status": "Not Available", "imagePath": 4 },
+    { "title": "Pride and Prejudice", "author": "Jane Austen", "genre": "Inspiring", "condition": "Bad", "status": "Available", "imagePath": 5 },
+    { "title": "The Catcher in the Rye", "author": "J.D. Salinger", "genre": "Knowledgeable", "condition": "Very Good", "status": "Not Available", "imagePath": 6 },
+    { "title": "The Hobbit", "author": "J.R.R. Tolkien", "genre": "Technology", "condition": "Good", "status": "Available", "imagePath": 7 },
+    { "title": "Harry Potter and the Sorcerer's Stone", "author": "J.K. Rowling", "genre": "Science", "condition": "Average", "status": "Not Available", "imagePath": 8 },
+    { "title": "Moby Dick", "author": "Herman Melville", "genre": "Maths", "condition": "Usable", "status": "Available", "imagePath": 9 },
+    { "title": "War and Peace", "author": "Leo Tolstoy", "genre": "Comics", "condition": "Bad", "status": "Not Available", "imagePath": 10 },
+    { "title": "Brave New World", "author": "Aldous Huxley", "genre": "Spiritual", "condition": "Very Good", "status": "Available", "imagePath": 11 },
+    { "title": "The Shining", "author": "Stephen King", "genre": "Thriller", "condition": "Good", "status": "Not Available", "imagePath": 12 },
+    { "title": "Crime and Punishment", "author": "Fyodor Dostoevsky", "genre": "Horror", "condition": "Average", "status": "Available", "imagePath": 13 },
+    { "title": "Frankenstein", "author": "Mary Shelley", "genre": "Comedy", "condition": "Usable", "status": "Not Available", "imagePath": 14 },
+    { "title": "The Lord of the Rings", "author": "J.R.R. Tolkien", "genre": "Biopic", "condition": "Bad", "status": "Available", "imagePath": 15 },
+    { "title": "The Book Thief", "author": "Markus Zusak", "genre": "Inspiring", "condition": "Very Good", "status": "Not Available", "imagePath": 16 },
+    { "title": "The Hunger Games", "author": "Suzanne Collins", "genre": "Knowledgeable", "condition": "Good", "status": "Available", "imagePath": 17 },
+    { "title": "The Chronicles of Narnia", "author": "C.S. Lewis", "genre": "Technology", "condition": "Average", "status": "Not Available", "imagePath": 18 },
+    { "title": "The Road", "author": "Cormac McCarthy", "genre": "Science", "condition": "Usable", "status": "Available", "imagePath": 1 },
+    { "title": "The Alchemist", "author": "Paulo Coelho", "genre": "Maths", "condition": "Bad", "status": "Not Available", "imagePath": 2 }
+]

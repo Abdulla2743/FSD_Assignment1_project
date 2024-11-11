@@ -18,16 +18,14 @@ const bookSchema = new mongoose.Schema({
     genre: String,
     condition: String,
     status: String,
-    image: String
+    imagePath: String
 });
 
 const Book = mongoose.model("Book", bookSchema);
 
-// Endpoint to add a book
-// Endpoint to add a book
 app.post("/add-book", async (req, res) => {
     try {
-        const { title, author, genre, condition, status, image } = req.body;
+        const { title, author, genre, condition, status, imagePath } = req.body;
 
         const bookData = {
             title,
@@ -35,8 +33,9 @@ app.post("/add-book", async (req, res) => {
             genre,
             condition,
             status,
-            image
+            imagePath
         };
+
 
         const book = new Book(bookData);
         const savedBook = await book.save();
@@ -47,8 +46,36 @@ app.post("/add-book", async (req, res) => {
     }
 });
 
+app.get('/search', async (req, res) => {
+    const { query, genre, condition, status } = req.query;
+    const filter = {};
+  
+    if (query) {
+      filter.$or = [
+        { title: { $regex: query, $options: 'i' } },
+        { author: { $regex: query, $options: 'i' } },
+      ];
+    }
+    if (genre) {
+      filter.genre = genre;
+    }
+    if (condition) {
+      filter.condition = condition;
+    }
+    if (status) {
+      filter.status = status;
+    }
+  
+    try {
+      const books = await Book.find(filter);
+      res.json(books);
+    } catch (error) {
+      console.error('Error fetching books:', error);
+      res.status(500).json({ message: 'Failed to fetch books' });
+    }
+  });
 
-// Endpoint to get all books
+
 app.get("/get-books", async (req, res) => {
     try {
         const books = await Book.find();
@@ -57,6 +84,22 @@ app.get("/get-books", async (req, res) => {
         res.status(500).send({ error: 'Failed to retrieve books', details: err });
     }
 });
+
+app.get('/get-book/:id', async (req, res) => {
+    try {
+        const book = await Book.findById(req.params.id);
+        if (book) {
+            res.status(200).send(book);
+        } else {
+            res.status(404).send({ error: 'Book not found' });
+        }
+    } catch (error) {
+        console.error('Error fetching book in backend:', error); // Check this log for more details
+        res.status(500).send({ error: 'Failed to fetch book details' });
+    }
+});
+
+
 
 // User authentication routes
 const users = [];
