@@ -7,7 +7,7 @@ const socket = io("http://localhost:5000", {
 
 function Chat() {
     const [username, setUsername] = useState("");
-    const [tempUsername, setTempUsername] = useState(""); // Temporary username input
+    const [tempUsername, setTempUsername] = useState("");
     const [message, setMessage] = useState("");
     const [chat, setChat] = useState([]);
     const [isUsernameSet, setIsUsernameSet] = useState(false); 
