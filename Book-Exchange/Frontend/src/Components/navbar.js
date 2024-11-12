@@ -58,7 +58,7 @@ const Navbar = () => {
       setClick(false);
     }, [location]);
 
-    const hideSearchForm = location.pathname.includes('book') ;
+    const hideSearchForm = location.pathname.includes('book') || location.pathname.includes('chat') ;
 
   return (
     <div>
