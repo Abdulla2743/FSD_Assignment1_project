@@ -7,15 +7,14 @@ const AddBook = () => {
   const [genre, setGenre] = useState("");
   const [condition, setCondition] = useState("");
   const [status, setStatus] = useState("");
-  const [image, setImage] = useState(null); // Changed to handle file
-  const [imagePreview, setImagePreview] = useState(null); // For displaying the selected image
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
-  // Handle file selection
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file && file.type === "image/jpeg") {
       setImage(file);
-      setImagePreview(URL.createObjectURL(file)); // For image preview
+      setImagePreview(URL.createObjectURL(file));
     } else {
       alert("Please select a valid .jpg file.");
     }
@@ -23,7 +22,7 @@ const AddBook = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const bookData = {
       title,
       author,
@@ -32,17 +31,16 @@ const AddBook = () => {
       status,
     };
 
-    
     const formData = new FormData();
-    formData.append("bookData", JSON.stringify(bookData)); // Append book details as a JSON string
+    formData.append("bookData", JSON.stringify(bookData));
     if (image) {
-      formData.append("image", image); // Append the selected image file
+      formData.append("image", image);
     }
 
     try {
       const response = await axios.post("http://localhost:5000/add-book", formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // Use multipart form data for file upload
+          "Content-Type": "multipart/form-data",
         },
       });
       console.log("Book added:", response.data);
@@ -52,14 +50,22 @@ const AddBook = () => {
   };
 
   return (
-    <>
+    <div
+      className="min-h-screen flex items-center justify-center"
+      style={{
+        backgroundImage: `url('/user-images/backgroundwall.webp')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <form
         onSubmit={handleSubmit}
-        className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
+        className="max-w-md p-8 bg-white bg-opacity-90 shadow-lg rounded-lg backdrop-blur-sm"
       >
         <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800">
           Add a New Book
         </h2>
+        
         <div className="mb-6">
           <label
             className="block text-gray-700 font-medium mb-2"
@@ -199,7 +205,7 @@ const AddBook = () => {
         </div>
 
         
-
+        
         <button
           type="submit"
           className="w-full bg-indigo-600 text-white font-semibold py-3 rounded-lg hover:bg-indigo-700 transition duration-300 ease-in-out"
@@ -207,8 +213,11 @@ const AddBook = () => {
           Add Book
         </button>
       </form>
-    </>
+    </div>
   );
 };
 
 export default AddBook;
+
+
+
