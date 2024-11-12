@@ -17,7 +17,6 @@ const BookDetails = () => {
     }
   };
 
-  // Function to get genre description based on the genre
   const getGenreDescription = (genre) => {
     const genreDescriptions = {
       Thriller:
@@ -44,10 +43,20 @@ const BookDetails = () => {
         "Spiritual books focus on the exploration of the soul, personal growth, and the search for meaning in life. These books often draw on religious or philosophical traditions, offering wisdom on topics like meditation, mindfulness, and inner peace. They may provide guidance on how to live a fulfilling life, seek enlightenment, or find spiritual connection.",
     };
 
-    // Return the corresponding description or a default message if the genre is not found
     return (
       genreDescriptions[genre] || "No description available for this genre."
     );
+  };
+
+  const getStarRating = (condition) => {
+    const ratings = {
+      "Very Good": 5,
+      "Good": 4,
+      "Average": 3,
+      "Usable": 2,
+      "Bad": 1,
+    };
+    return ratings[condition] || 0;
   };
 
   useEffect(() => {
@@ -68,50 +77,55 @@ const BookDetails = () => {
               src={`/user-images/${book.imagePath}.jpg`}
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h2 className="">
-                Title:  {" "}
-                <span className="text-gray-900 text-xl title-font font-medium mb-1">
-                  {book.title}
-                </span>
-              </h2>
-              <h1 className="">
-                Author:  {" "}
-                <span className="text-gray-900 text-xl title-font font-medium mb-1">
-                  {book.author}
-                </span>
-              </h1>
-              <h1 className="">
-                Genre:  {" "}
-                <span className="text-gray-900 text-xl title-font font-medium mb-1">
-                  {book.genre}
-                </span>
-              </h1>
-              <h1 className="">
-                Condition:  {" "}
-                <span className="text-gray-900 text-xl title-font font-medium mb-1">
-                  {book.condition}
-                </span>
-              </h1>
-              <h1 className="">
-                Status:  {" "}
-                <span className="text-gray-900 text-xl title-font font-medium mb-1">
-                  {book.status}
-                </span>
-              </h1>
-              <br></br>
-              <h1 className="">
-                <span className="text-gray-900 title-font font-medium mb-1">Description: </span>
-                  {/* Genre Descriptions */}
-                <p className="leading-relaxed">
+              <div className="mb-4">
+                <h2 className="text-lg font-semibold text-gray-400">
+                  Title:{" "}
+                  <span className="text-gray-900">{book.title}</span>
+                </h2>
+              </div>
+              <div className="mb-4">
+                <h2 className="text-lg font-semibold text-gray-400">
+                  Author:{" "}
+                  <span className="text-gray-900">{book.author}</span>
+                </h2>
+              </div>
+              <div className="mb-4">
+                <h2 className="text-lg font-semibold text-gray-400">
+                  Genre:{" "}
+                  <span className="text-gray-900">{book.genre}</span>
+                </h2>
+              </div>
+              <div className="mb-4 flex items-center gap-2">
+                <h2 className="text-lg font-semibold text-gray-400">
+                  Condition:
+                </h2>
+                <span className="text-gray-900">{book.condition}</span>
+                <div className="flex">
+                  {[...Array(getStarRating(book.condition))].map((_, i) => (
+                    <span key={i} className="text-yellow-500">★</span>
+                  ))}
+                  {[...Array(5 - getStarRating(book.condition))].map((_, i) => (
+                    <span key={i} className="text-gray-300">★</span>
+                  ))}
+                </div>
+              </div>
+              <div className="mb-4">
+                <h2 className="text-lg font-semibold text-gray-400">
+                  Status:{" "}
+                  <span className="text-gray-900">{book.status}</span>
+                </h2>
+              </div>
+              <div className="mt-6">
+                <h2 className="text-lg font-semibold text-gray-400">Description:</h2>
+                <p className="leading-relaxed text-gray-700 mt-2">
                   {getGenreDescription(book.genre)}
                 </p>
-              </h1>
-              <br></br>
-              <div className="flex gap-5">
-                <button className="flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">
+              </div>
+              <div className="flex gap-5 mt-6">
+                <button className="text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">
                   Button
                 </button>
-                <button className="flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">
+                <button className="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">
                   Button
                 </button>
               </div>
