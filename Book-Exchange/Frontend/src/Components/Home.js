@@ -4,19 +4,65 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
+  const [status, setStatus] = useState(null);
+  const [id, setId] = useState();
 
+  // Fetch books initially and whenever needed
   const fetchBooks = async () => {
     try {
       const response = await axios.get('http://localhost:5000/get-books');
-      setBooks(response.data); 
+      setBooks(response.data);
     } catch (error) {
       console.error('Error fetching books:', error);
     }
   };
 
+  const handleRequestBook = async (bookId) => {
+    try {
+      const response = await axios.post(`http://localhost:5000/request-book`, { bookId });
+      console.log(response.data.message); // Display success message
+      setId(response.data.id); // Set the request ID to trigger status fetch
+      
+      // Update the local state for the requested book status
+      setBooks((prevBooks) => 
+        prevBooks.map((book) =>
+          book._id === bookId ? { ...book, status: "Pending" } : book
+        )
+      );
+
+      // Change status to "Accepted Request" after 5 seconds
+      setTimeout(() => {
+        setBooks((prevBooks) => 
+          prevBooks.map((book) =>
+            book._id === bookId ? { ...book, status: "Not Available" } : book
+          )
+        );
+      }, 5000); // 5 seconds delay
+
+    } catch (error) {
+      console.error('Error requesting book:', error);
+    }
+  };
+
+  // Fetch the request status when the ID changes
+  useEffect(() => {
+    const fetchStatus = async () => {
+      if (!id) return; // Only fetch if ID is set
+      try {
+        const response = await axios.get(`/request-status/${id}`);
+        setStatus(response.data.status);
+      } catch (err) {
+        console.log("Error fetching status:", err);
+      }
+    };
+
+    fetchStatus();
+  }, [id]);
+
+  // Fetch books on initial render
   useEffect(() => {
     fetchBooks();
-  }, []); 
+  }, []);
 
   return (
     <>
@@ -39,14 +85,29 @@ const Home = () => {
                   <h2 className="text-gray-900 title-font text-lg font-medium">
                     {book.author}
                   </h2>
-                    <div className="flex items-center justify-between">
-                  {
-                    (book.status === "Available")?
-                    (<button  className="bg-green-500 p-1 text-sm text-gray-100 rounded">Request Book</button>):
-                    (<button disabled className="bg-green-500 hover:bg-red-500 text-gray-100 hover:text-white p-1 text-sm rounded">Request Book</button>)
-
-                  }
-                  <span className="bg-blue-200 p-1 text-sm rounded-lg">{book.status}</span>
+                  <div className="flex items-center justify-between">
+                    {book.status === "Available" ? (
+                      <button
+                        onClick={() => handleRequestBook(book._id)}
+                        className="bg-blue-700 p-1 text-sm text-gray-100 rounded"
+                      >
+                        Request Book
+                      </button>
+                    ) : book.status === "Not Available" ? (
+                      <button
+                        disabled
+                        className="bg-gray-500 p-1 text-sm text-gray-100 rounded"
+                      >
+                        Accepted Request
+                      </button>
+                    ) : (
+                      <button
+                        disabled
+                        className="bg-gray-400 p-1 text-sm text-gray-100 rounded"
+                      >
+                        {book.status}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -56,6 +117,6 @@ const Home = () => {
       </section>
     </>
   );
-};
+}
 
 export default Home;

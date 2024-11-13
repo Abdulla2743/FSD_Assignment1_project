@@ -12,9 +12,12 @@ import ChatTwo from './Components/chatTwo';
 import Logout from './Components/logout';
 import AdvanceSearch from './Components/advanceSearch';
 import Navbar from './Components/navbar';
+import User from './Components/User';
+import { AppProvider } from './Components/AppContext';
 
 function App() {
     return (
+        <AppProvider>
         <Router>
             <div>
                 <Navbar/>
@@ -28,9 +31,11 @@ function App() {
                     <Route path="/chat" element={<Chat />} />
                     <Route path="/chat-two" element={<ChatTwo />} />
                     <Route path="/search" element={<AdvanceSearch />} />
+                    <Route path="/user" element={<User />} />
                 </Routes>
             </div>
         </Router>
+        </AppProvider>
     );
 }
 

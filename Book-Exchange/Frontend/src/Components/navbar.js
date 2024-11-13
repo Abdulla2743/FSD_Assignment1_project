@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
@@ -21,44 +21,62 @@ const status = ["Available", "Not Available"];
 const conditions = ["Very Good", "Good", "Average", "Usable", "Bad"];
 
 const Navbar = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [books, setBooks] = useState([]);
-    const [click, setClick] = useState(false);
-    const location = useLocation();
-  
-    const handleSearch = async (e) => {
-      e.preventDefault();
-      setClick(true);
-      const formData = new FormData(e.currentTarget);
-      const params = new URLSearchParams();
-  
-      for (const [key, value] of formData.entries()) {
-        if (value) params.append(key, value);
-      }
-  
-      setSearchParams(params);
-  
-      try {
-        const response = await fetch(
-          `http://localhost:5000/search?${params.toString()}`
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setBooks(data);
-        } else {
-          console.error("Failed to fetch books");
-        }
-      } catch (error) {
-        console.error("Error fetching books:", error);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [books, setBooks] = useState([]);
+  const [click, setClick] = useState(false);
+  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [username, setUsername] = useState("");
+  const modalRef = useRef(null);
+
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
+
+  // Close modal if clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setIsOpen(false);
       }
     };
-  
-    useEffect(() => {
-      setBooks([]);
-      setClick(false);
-    }, [location]);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-    const hideSearchForm = location.pathname.includes('book') ;
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    setClick(true);
+    const formData = new FormData(e.currentTarget);
+    const params = new URLSearchParams();
+
+    for (const [key, value] of formData.entries()) {
+      if (value) params.append(key, value);
+    }
+
+    setSearchParams(params);
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/search?${params.toString()}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setBooks(data);
+      } else {
+        console.error("Failed to fetch books");
+      }
+    } catch (error) {
+      console.error("Error fetching books:", error);
+    }
+  };
+
+  useEffect(() => {
+    setBooks([]);
+    setClick(false);
+  }, [location]);
+
+  const hideSearchForm = location.pathname.includes("book");
 
   return (
     <div>
@@ -111,55 +129,76 @@ const Navbar = () => {
                 placeholder="Search books..."
                 className="w-[300px] pl-4 pr-4 py-2 rounded-lg border border-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
-            </div>)}
+            </div>
+          )}
+          <div className="ml-2 cursor-pointer">
+            {/* Icon to open modal */}
+            <p
+              onClick={toggleModal}
+              className="text-2xl p-2 bg-blue-500 text-white rounded-full"
+            >
+              &#128100; {/* User Icon */}
+            </p>
+
+            {/* Modal */}
+            {isOpen && (
+              <div
+                ref={modalRef}
+                className="absolute top-[80px] right-10 p-4 bg-white border rounded shadow-lg w-64"
+              >
+                <h3 className="text-lg font-semibold mb-2">Abdullah</h3>
+              </div>
+            )}
+          </div>
         </header>
         {!hideSearchForm && (
-        <div className="grid gap-4 md:grid-cols-4">
-          <select
-            name="genre"
-            defaultValue={searchParams.get("genre") || ""}
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="">All Genres</option>
-            {genres.map((genre) => (
-              <option key={genre} value={genre}>
-                {genre}
-              </option>
-            ))}
-          </select>
-          <select
-            name="status"
-            defaultValue={searchParams.get("status") || ""}
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="">Status</option>
-            {status.map((status) => (
-              <option key={status} value={status}>
-                {status}
-              </option>
-            ))}
-          </select>
+          <div className="grid gap-4 md:grid-cols-4">
+            <select
+              name="genre"
+              defaultValue={searchParams.get("genre") || ""}
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="">All Genres</option>
+              {genres.map((genre) => (
+                <option key={genre} value={genre}>
+                  {genre}
+                </option>
+              ))}
+            </select>
+            <select
+              name="status"
+              defaultValue={searchParams.get("status") || ""}
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="">Status</option>
+              {status.map((status) => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
+              ))}
+            </select>
 
-          <select
-            name="condition"
-            defaultValue={searchParams.get("condition") || ""}
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="">Any Condition</option>
-            {conditions.map((condition) => (
-              <option key={condition} value={condition}>
-                {condition}
-              </option>
-            ))}
-          </select>
+            <select
+              name="condition"
+              defaultValue={searchParams.get("condition") || ""}
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="">Any Condition</option>
+              {conditions.map((condition) => (
+                <option key={condition} value={condition}>
+                  {condition}
+                </option>
+              ))}
+            </select>
 
-          <button
-            type="submit"
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
-            Search
-          </button>
-        </div>)}
+            <button
+              type="submit"
+              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Search
+            </button>
+          </div>
+        )}
       </form>
 
       <div>
