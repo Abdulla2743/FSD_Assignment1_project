@@ -33,7 +33,6 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
-  // Close modal if clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -44,7 +43,6 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-<<<<<<< HEAD
   const handleSearch = async (e) => {
     e.preventDefault();
     setClick(true);
@@ -77,10 +75,7 @@ const Navbar = () => {
     setClick(false);
   }, [location]);
 
-  const hideSearchForm = location.pathname.includes("book");
-=======
-    const hideSearchForm = location.pathname.includes('book') || location.pathname.includes('chat') ;
->>>>>>> e7ce7a1372b5c5de74974b107b7982b7aa8f4b8c
+  const hideSearchForm = location.pathname.includes("book") || location.pathname.includes('chat') || location.pathname.includes('login') || location.pathname.includes('register') ;
 
   return (
     <div>

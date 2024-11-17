@@ -20,34 +20,31 @@ const Home = () => {
   const handleRequestBook = async (bookId) => {
     try {
       const response = await axios.post(`http://localhost:5000/request-book`, { bookId });
-      console.log(response.data.message); // Display success message
-      setId(response.data.id); // Set the request ID to trigger status fetch
+      console.log(response.data.message);
+      setId(response.data.id); 
       
-      // Update the local state for the requested book status
       setBooks((prevBooks) => 
         prevBooks.map((book) =>
           book._id === bookId ? { ...book, status: "Pending" } : book
         )
       );
 
-      // Change status to "Accepted Request" after 5 seconds
       setTimeout(() => {
         setBooks((prevBooks) => 
           prevBooks.map((book) =>
             book._id === bookId ? { ...book, status: "Not Available" } : book
           )
         );
-      }, 5000); // 5 seconds delay
+      }, 5000); 
 
     } catch (error) {
       console.error('Error requesting book:', error);
     }
   };
 
-  // Fetch the request status when the ID changes
   useEffect(() => {
     const fetchStatus = async () => {
-      if (!id) return; // Only fetch if ID is set
+      if (!id) return; 
       try {
         const response = await axios.get(`/request-status/${id}`);
         setStatus(response.data.status);
@@ -59,7 +56,6 @@ const Home = () => {
     fetchStatus();
   }, [id]);
 
-  // Fetch books on initial render
   useEffect(() => {
     fetchBooks();
   }, []);
